@@ -13,8 +13,9 @@ class RedisDataNotFoundException(BaseException):
 class DAO:
 
     def __init__(self, redis_host=os.getenv("REDIS_URL"), redis_port=6379, redis_password=""):
-        self.db = redis.StrictRedis(
-            host=redis_host, port=redis_port, password=redis_password, decode_responses=True)
+        # self.db = redis.StrictRedis(
+        #     host=redis_host, port=redis_port, password=redis_password, decode_responses=True)
+        self.db = redis.from_url(redis_host)
 
     def insert_equity(self, equity):
 
