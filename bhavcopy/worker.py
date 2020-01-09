@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import redis
+import os
 
 from bhavcopy import model
 
@@ -11,8 +12,7 @@ class RedisDataNotFoundException(BaseException):
 
 class DAO:
 
-    def __init__(self, redis_host="localhost", redis_port=6379, redis_password=""):
-
+    def __init__(self, redis_host=os.getenv("REDIS_URL"), redis_port=6379, redis_password=""):
         self.db = redis.StrictRedis(
             host=redis_host, port=redis_port, password=redis_password, decode_responses=True)
 
