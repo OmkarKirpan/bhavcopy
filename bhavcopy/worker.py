@@ -43,8 +43,8 @@ class DAO:
         for key in keys:
             hashval = self.db.hgetall(key)
 
-            name, date = key.split(':')[1], datetime.strptime(
-                key.split(':')[2], '%d%m%y')
+            name, date = key.decode().split(':')[1], datetime.strptime(
+                key.decode().split(':')[2], '%d%m%y')
 
             equity = model.Equity(code=int(hashval['code']),
                                   name=name,
