@@ -8,7 +8,7 @@ from bhavcopy import bse, worker
 
 class BhavController(object):
     jinja = jinja2.Environment(
-        loader=jinja2.PackageLoader('bhavcopy', 'res/templates'),
+        loader=jinja2.PackageLoader('bhavcopy', 'public/templates'),
         autoescape=jinja2.select_autoescape(['html', 'xml'])
     )
 
@@ -27,9 +27,25 @@ class BhavController(object):
         except worker.RedisDataNotFoundException:
             raise cherrypy.HTTPError(message="Data not found in database")
 
-        for equity in equities[:row_size]:
-            print(equity.name + " " + str(equity.open) + " " + repr(equity.date))
-        return "OK."
+        template = self.jinja.get_template('index.html')
+        return template.render(equities=equities[:row_size], date=date_text, error=error)
+
+    @cherrypy.expose
+    def detail(self, name, row_size=10):
+
+        name = name.upper()
+        if re.search(r'[^A-Z .&-]', name) is not None:
+            return self.index(error="Illegal stock name %s." % name)
+
+        try:
+            equities = worker.DAO().get_equities(name=name)
+        except worker.RedisDataNotFoundException:
+            return self.index(error=name + " was not found in our database. Please search for a different name.")
+
+        equities.sort(key=lambda eq: eq.date, reverse=True)
+
+        template = self.jinja.get_template('detail.html')
+        return template.render(equities=equities[:row_size])
 
     @cherrypy.expose
     def update(self, date_str=None):
