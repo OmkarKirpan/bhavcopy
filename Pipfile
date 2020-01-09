@@ -9,6 +9,7 @@ autopep8 = "*"
 [packages]
 redis = "*"
 cherrypy = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.8"

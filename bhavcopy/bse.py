@@ -16,6 +16,8 @@ class BhavNotFoundException(BaseException):
 def fetch_bhav(date):
     url = 'https://www.bseindia.com/download/BhavCopy/Equity/EQ%s_CSV.ZIP' % date.strftime(
         '%d%m%y')
+
+    print(url)
     try:
         with request.urlopen(url) as response:
             z = zipfile.ZipFile(io.BytesIO(response.read()))
