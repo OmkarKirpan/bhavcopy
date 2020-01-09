@@ -4,7 +4,7 @@
 ![python](https://img.shields.io/badge/python-3.8-brightgreen.svg)
 ![platform](https://img.shields.io/conda/pn/conda-forge/python.svg)
 
-BSE publishes a "Bhavcopy" file every day here: https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx
+BSE publishes a "Bhavcopy" file every day here: <https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx>
 
 Write a Python script that:
 
