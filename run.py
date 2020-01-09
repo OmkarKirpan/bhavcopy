@@ -3,11 +3,6 @@ import cherrypy
 import os
 
 
-# bcopy = bc.controller.fetch_bhav()
-
-# print(dir(bcopy[0]))
-
-
 if __name__ == '__main__':
     conf = {
         '/': {
@@ -19,7 +14,5 @@ if __name__ == '__main__':
             'tools.staticdir.dir': 'bhavcopy/public'
         }
     }
-
-    # res_path = os.path.join(os.path.dirname(__file__), 'res/')
 
     cherrypy.quickstart(bc.controller.BhavController(), '/', conf)
