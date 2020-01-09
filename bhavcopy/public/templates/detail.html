@@ -20,14 +20,24 @@
                         <p class="text-grey" style="text-align:justify;">Historical Bhav Copy data of
                             {{ equities[0].name }}
                             over 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    	the last
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	the last
                             {{ equities|length }}
                             days.</p>
                         <br><br>
                         <form action="/detail">
                             <!-- <input type="text" name="name" placeholder="{{ equities[0].name }}" required> -->
                             <select class="form-control select2" name="name" style="width: 30%">
-                                <option value="{{ equities[0].name }}">{{ equities[0].name }}</option>
+                                {% for eq in allequities %}
+                                    {% if( eq.name == equities[0].name)%}
+                                        <option value="{{eq.name}}" selected>
+                                            {{eq.name}}
+                                        </option>
+                                    {% else %}
+                                        <option value="{{eq.name}}">
+                                            {{eq.name}}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                             <input type="submit" value="Search">
                             <input onclick="location.href='/';" type="button" value="Go Back"/>

@@ -13,6 +13,18 @@
 <body>
     
     <h1>Bhavcopy</h1>
+    <div>
+        <form action="/detail">
+            <!-- <input type="text" name="name" placeholder="{{ equities[0].name }}" required> -->
+            <select class="form-control select2" name="name" style="width: 30%">
+                {% for eq in allequities %}
+                    <option value="{{eq.name}}"> {{eq.name}} </option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Search">
+            <input onclick="location.href='/';" type="button" value="Go Back" />
+        </form>
+    </div>
                 <div >
                     <table class="table table-bordered" summary="Latest Bhav Copy">
                         <thead>
@@ -49,5 +61,8 @@
                     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
                     crossorigin="anonymous"></script>
                     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-</body>
+                            <script>
+                                $('.select2').select2();
+                            </script>
+                </body>
 </html>

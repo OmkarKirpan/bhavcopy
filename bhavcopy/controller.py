@@ -28,10 +28,10 @@ class BhavController(object):
             raise cherrypy.HTTPError(message="Data not found in database")
 
         template = self.jinja.get_template('index.html')
-        return template.render(equities=equities[:row_size], date=date_text, error=error)
+        return template.render(equities=equities[:row_size], allequities=equities, date=date_text, error=error)
 
     @cherrypy.expose
-    def detail(self, name, row_size=10):
+    def detail(self, name, row_size=10, date_str=None):
 
         name = name.upper()
         if re.search(r'[^A-Z .&-]', name) is not None:
@@ -44,8 +44,19 @@ class BhavController(object):
 
         equities.sort(key=lambda eq: eq.date, reverse=True)
 
+        # get allequities for search
+        if date_str is None:
+            date = datetime.today() - timedelta(1)
+        else:
+            date = datetime.strptime(date_str, '%d%m%y')
+
+        try:
+            allequities = worker.DAO().get_equities(date=date)
+        except worker.RedisDataNotFoundException:
+            raise cherrypy.HTTPError(message="Data not found in database")
+
         template = self.jinja.get_template('detail.html')
-        return template.render(equities=equities[:row_size])
+        return template.render(equities=equities[:row_size], allequities=allequities)
 
     @cherrypy.expose
     def update(self, date_str=None):
