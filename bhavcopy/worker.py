@@ -15,7 +15,7 @@ class DAO:
     def __init__(self, redis_host=os.getenv("REDIS_URL"), redis_port=6379, redis_password=""):
         # self.db = redis.StrictRedis(
         #     host=redis_host, port=redis_port, password=redis_password, decode_responses=True)
-        self.db = redis.from_url(redis_host)
+        self.db = redis.from_url(redis_host, decode_responses=True)
 
     def insert_equity(self, equity):
 
@@ -43,8 +43,8 @@ class DAO:
         for key in keys:
             hashval = self.db.hgetall(key)
 
-            name, date = key.decode().split(':')[1], datetime.strptime(
-                key.decode().split(':')[2], '%d%m%y')
+            name, date = key.split(':')[1], datetime.strptime(
+                key.split(':')[2], '%d%m%y')
 
             equity = model.Equity(code=int(hashval['code']),
                                   name=name,
