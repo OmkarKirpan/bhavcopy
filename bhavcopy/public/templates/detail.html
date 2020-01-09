@@ -10,63 +10,60 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet"/>
     </head>
     <body>
-        <div class="landing-sections text-center landing-screen">
+        <div class="container-fluid">
             <h2 class="text-center">Detailed Information for
                 {{ equities[0].name }}
-                ({{ equities[0].code }})</h2>
-            <div class="mini-container">
-                <div class="table-search-container">
-                    <div class="search-section">
-                        <p class="text-grey" style="text-align:justify;">Historical Bhav Copy data of
-                            {{ equities[0].name }}
-                            over 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	the last
-                            {{ equities|length }}
-                            days.</p>
-                        <br><br>
-                        <form action="/detail">
-                            <!-- <input type="text" name="name" placeholder="{{ equities[0].name }}" required> -->
-                            <select class="form-control select2" name="name" style="width: 30%">
-                                {% for eq in allequities %}
-                                    {% if( eq.name == equities[0].name)%}
-                                        <option value="{{eq.name}}" selected>
-                                            {{eq.name}}
-                                        </option>
-                                    {% else %}
-                                        <option value="{{eq.name}}">
-                                            {{eq.name}}
-                                        </option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                            <input type="submit" value="Search">
-                            <input onclick="location.href='/';" type="button" value="Go Back"/>
-                        </form>
-                    </div>
-                    <div class="table-section">
-                        <table class="table table-bordered" id="hor-minimalist-b" summary="Latest Bhav Copy">
-                            <thead>
+                ({{ equities[0].code }})
+            </h2>
+            <div>
+                <div>
+                    <p style="text-align:justify;">Historical Bhav Copy data of
+                        {{ equities[0].name }}
+                        over                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            	the last
+                        {{ equities|length }}
+                        days.</p>
+                    <form action="/detail" style="margin-bottom: 1rem;">
+                        <!-- <input type="text" name="name" placeholder="{{ equities[0].name }}" required> -->
+                        <select class="form-control select2" name="name" style="width: 30%">
+                            {% for eq in allequities %}
+                                {% if( eq.name == equities[0].name)%}
+                                    <option value="{{eq.name}}" selected>
+                                        {{eq.name}}
+                                    </option>
+                                {% else %}
+                                    <option value="{{eq.name}}">
+                                        {{eq.name}}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <input class="btn btn-primary btn-sm" type="submit" value="Search">
+                        <input class="btn btn-primary btn-sm" onclick="location.href='/';" type="button" value="Go Back"/>
+                    </form>
+                </div>
+                <div class="table-section">
+                    <table class="table table-bordered" id="hor-minimalist-b" summary="Latest Bhav Copy">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Open</th>
+                                <th scope="col">High</th>
+                                <th scope="col">Low</th>
+                                <th scope="col">Close</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eq in equities %}
                                 <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Open</th>
-                                    <th scope="col">High</th>
-                                    <th scope="col">Low</th>
-                                    <th scope="col">Close</th>
+                                    <td>{{ eq.date.strftime('%d-%m-%Y')  }}</td>
+                                    <td>{{ eq.open }}</td>
+                                    <td>{{ eq.high }}</td>
+                                    <td>{{ eq.low }}</td>
+                                    <td>{{ eq.close }}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {% for eq in equities %}
-                                    <tr>
-                                        <td>{{ eq.date.strftime('%d-%m-%Y')  }}</td>
-                                        <td>{{ eq.open }}</td>
-                                        <td>{{ eq.high }}</td>
-                                        <td>{{ eq.low }}</td>
-                                        <td>{{ eq.close }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
