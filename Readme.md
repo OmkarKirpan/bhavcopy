@@ -32,7 +32,7 @@ $ pip install pipenv
 $ pipenv install
 ```
 
-## Run Flask
+## Run CherryPy server
 
 ```
 $ pipenv shell
@@ -40,6 +40,16 @@ $ pipenv shell
 
 ```
 $ python run.py
+```
+
+## Seeding/Updating Data into Redis
+go to
+```
+https://ok-bhavcopy.herokuapp.com/update
+```
+also to seed data of given date (specify date in %d%m%y)
+```
+https://ok-bhavcopy.herokuapp.com/update?date_str=080120
 ```
 
 ## Contributing ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
